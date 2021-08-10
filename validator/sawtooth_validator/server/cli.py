@@ -88,7 +88,7 @@ def load_validator_config(first_config, config_dir):
     return merge_validator_config(
         configs=[first_config, toml_config, default_validator_config])
 
-
+# This args object is a dictionary, passed on by Rust code
 def main(args):
     try:
         path_config = load_path_config(config_dir=args['config_dir'])

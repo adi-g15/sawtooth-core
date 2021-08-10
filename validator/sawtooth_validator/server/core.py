@@ -13,6 +13,7 @@
 # limitations under the License.
 # ------------------------------------------------------------------------------
 
+# This file provides the 'core', ie. the Validator class
 import hashlib
 import logging
 import os
@@ -123,6 +124,7 @@ class Validator:
             data_dir, 'merkle-{}.lmdb'.format(bind_network[-2:]))
         LOGGER.debug(
             'global state database file is %s', global_state_db_filename)
+        # Here we are creating the LMDB database, in total there are 3 lmdb databases, for state (merkle tree), transaction receipts, and blocks
         global_state_db = NativeLmdbDatabase(
             global_state_db_filename,
             indexes=MerkleDatabase.create_index_configuration())
@@ -147,12 +149,14 @@ class Validator:
         # than the cache keep time used by the completer.
         base_keep_time = 1200
 
+        # FUTURE: Take a look at this block manager, maybe block handling can be altered a bit using this
         block_manager = BlockManager()
         block_manager.add_commit_store(block_store)
 
         block_status_store = BlockValidationResultStore()
 
         # -- Setup Thread Pools -- #
+        # FUTURE: Similar to these, create a threadpool for ServerRegisterReceiver
         component_thread_pool = InstrumentedThreadPoolExecutor(
             max_workers=component_thread_pool_workers,
             name='Component')
@@ -397,6 +401,7 @@ class Validator:
                       lambda sig, fr: signal_event.set())
         # This is where the main thread will be during the bulk of the
         # validator's life.
+        # The validator's main thread just sleeps for the rest time, and the signal_event is set when SIGTERM is received
         while not signal_event.is_set():
             signal_event.wait(timeout=20)
 

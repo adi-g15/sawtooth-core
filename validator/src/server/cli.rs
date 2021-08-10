@@ -23,6 +23,9 @@ use cpython::{PyDict, PyResult, Python};
 const DISTRIBUTION_NAME: &str = "sawtooth-validator";
 const VERSION: &str = env!("CARGO_PKG_VERSION");
 
+// The file on a whole, provides utility functions, i had say, for parsing strings to integers, and
+// parsing cli args using clap
+// This function gets the cli matches, and converts it to a Python dictionary
 pub fn wrap_in_pydict(py: Python, matches: &ArgMatches) -> PyResult<PyDict> {
     let (bind_component, bind_network, bind_consensus) = parse_bindings(matches);
 

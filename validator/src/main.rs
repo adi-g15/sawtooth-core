@@ -13,7 +13,15 @@ use server::cli;
 
 use std::process;
 
+/*
+ * So, what it does is:
+ * Get a python GIL, start a logger (& metrics), then import sawtooth_validator.server.cli, and
+ * call the main function
+ * */
 fn main() {
+    // GIL - Global Interpreter Lock, a mechanism in interpreters to synchronise threads so that
+    // only one native thread can execute at a time
+    // CPython has GIL
     let gil = Python::acquire_gil();
     let py = gil.python();
 

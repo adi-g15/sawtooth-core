@@ -15,6 +15,8 @@
  * ------------------------------------------------------------------------------
  */
 
+// This file on a whole provides ffi abstractions, and notifications using some
+// NotificationsService, read more when you like
 use std::ffi::CStr;
 use std::os::raw::{c_char, c_void};
 use std::slice;

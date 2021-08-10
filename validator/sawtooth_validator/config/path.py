@@ -132,10 +132,10 @@ def merge_path_config(configs, config_dir_override):
 
 
 def load_path_config(config_dir=None):
-    default_config = get_default_path_config()
-
     if config_dir is None:
+        default_config = get_default_path_config()
         conf_file = os.path.join(default_config.config_dir, 'path.toml')
+
     else:
         conf_file = os.path.join(config_dir, 'path.toml')
 
