@@ -28,7 +28,7 @@ class EngineAlreadyActive(Exception):
 EngineInfo = namedtuple(
     'EngineInfo', ['connection_id', 'name', 'version', 'additional_protocols'])
 
-
+# @adi - According to the comment here, it seems we can register multiple consensus engines, among which one is set as the active one
 class ConsensusRegistry:
     """A thread-safe construct that stores the connection_id, name, version,
     and any additional supported protocols of all registered consensus engines,
